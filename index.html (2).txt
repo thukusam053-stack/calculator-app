@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sam | Portfolio</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+    }
+    header {
+      text-align: center;
+      padding: 50px;
+      background: #1e293b;
+    }
+    section {
+      padding: 40px;
+    }
+    .projects div {
+      background: #1e293b;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Sam</h1>
+  <p>Aspiring Software Developer 🚀</p>
+</header>
+
+<section>
+  <h2>About Me</h2>
+  <p>I am a student passionate about technology and building solutions.</p>
+</section>
+
+<section class="projects">
+  <h2>Projects</h2>
+
+  <div>
+    <h3>Student Management System</h3>
+    <p>A C++ project for managing student records.</p>
+  </div>
+
+  <div>
+    <h3>Personal Website</h3>
+    <p>This portfolio website built using HTML and CSS.</p>
+  </div>
+
+</section>
+
+<section>
+  <h2>Contact</h2>
+  <p>Email: your@email.com</p>
+</section>
+
+</body>
+</html>
