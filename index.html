@@ -1,61 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sam | Portfolio</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #0f172a;
-      color: white;
-    }
-    header {
-      text-align: center;
-      padding: 50px;
-      background: #1e293b;
-    }
-    section {
-      padding: 40px;
-    }
-    .projects div {
-      background: #1e293b;
-      margin: 10px 0;
-      padding: 15px;
-      border-radius: 10px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>Sam</h1>
-  <p>Aspiring Software Developer 🚀</p>
-</header>
+  <div class="calculator">
+    <input type="text" id="display" disabled>
 
-<section>
-  <h2>About Me</h2>
-  <p>I am a student passionate about technology and building solutions.</p>
-</section>
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="appendValue('/')">/</button>
+      <button onclick="appendValue('*')">*</button>
 
-<section class="projects">
-  <h2>Projects</h2>
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('-')">-</button>
 
-  <div>
-    <h3>Student Management System</h3>
-    <p>A C++ project for managing student records.</p>
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="calculateResult()">=</button>
+
+      <button onclick="appendValue('0')" class="zero">0</button>
+      <button onclick="appendValue('.')">.</button>
+    </div>
   </div>
 
-  <div>
-    <h3>Personal Website</h3>
-    <p>This portfolio website built using HTML and CSS.</p>
-  </div>
-
-</section>
-
-<section>
-  <h2>Contact</h2>
-  <p>Email: your@email.com</p>
-</section>
-
+  <script src="script.js"></script>
 </body>
 </html>
