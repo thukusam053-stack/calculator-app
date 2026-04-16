@@ -5,7 +5,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  background: #f2f2f2;
+  background: #f0f0f0;
 }
 
 .calculator {
@@ -21,9 +21,9 @@ body {
   font-size: 24px;
   text-align: right;
   margin-bottom: 10px;
-  border: none;
-  border-radius: 8px;
   padding: 5px;
+  border-radius: 8px;
+  border: none;
 }
 
 .buttons {
