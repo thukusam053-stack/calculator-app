@@ -19,3 +19,18 @@ function calculateResult() {
     display.value = "Error";
   }
 }
+
+// 🔥 Keyboard support
+document.addEventListener("keydown", function(event) {
+  const key = event.key;
+
+  if (!isNaN(key) || "+-*/.".includes(key)) {
+    appendValue(key);
+  } else if (key === "Enter") {
+    calculateResult();
+  } else if (key === "Backspace") {
+    deleteLast();
+  } else if (key === "Escape") {
+    clearDisplay();
+  }
+});
