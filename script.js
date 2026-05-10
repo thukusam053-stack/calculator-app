@@ -1,88 +1,187 @@
-let display = document.getElementById("display");
+// script.js
 
-// Keep track of last result
-let lastResult = "";
+const display = document.getElementById("display");
 
-// ✅ Append value safely
-function appendValue(value) {
-  if (display.value === "Error") {
-    display.value = "";
+const buttons = document.querySelectorAll(".buttons button");
+
+const history = document.getElementById("history");
+
+const themeToggle = document.getElementById("theme-toggle");
+
+const copyBtn = document.getElementById("copy-btn");
+
+let currentInput = "";
+
+/* BUTTON CLICK EVENTS */
+
+buttons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const value = button.textContent;
+
+    handleInput(value);
+  });
+});
+
+/* HANDLE INPUT */
+
+function handleInput(value) {
+
+  if (value === "AC") {
+
+    clearDisplay();
+
+  } else if (value === "DEL") {
+
+    deleteLast();
+
+  } else if (value === "=") {
+
+    calculate();
+
+  } else {
+
+    appendValue(value);
   }
-
-  display.value += value;
 }
 
-// ✅ Clear display
+/* APPEND VALUES */
+
+function appendValue(value) {
+
+  const operators = ["+", "−", "×", "÷", "%"];
+
+  const lastChar = currentInput.slice(-1);
+
+  if (
+    operators.includes(lastChar) &&
+    operators.includes(value)
+  ) {
+    return;
+  }
+
+  currentInput += value;
+
+  display.value = currentInput;
+}
+
+/* CLEAR DISPLAY */
+
 function clearDisplay() {
+
+  currentInput = "";
+
   display.value = "";
 }
 
-// ✅ Delete last character
+/* DELETE LAST */
+
 function deleteLast() {
-  display.value = display.value.slice(0, -1);
+
+  currentInput = currentInput.slice(0, -1);
+
+  display.value = currentInput;
 }
 
-// ✅ Safe calculation (no eval)
-function calculateResult() {
+/* CALCULATE */
+
+function calculate() {
+
   try {
-    let expression = display.value
+
+    let expression = currentInput
       .replace(/×/g, "*")
-      .replace(/÷/g, "/");
+      .replace(/÷/g, "/")
+      .replace(/−/g, "-");
 
-    // Prevent invalid endings like "5+"
-    if (/[\+\-\*\/.]$/.test(expression)) return;
+    const result = eval(expression);
 
-    let result = Function('"use strict"; return (' + expression + ')')();
+    addToHistory(currentInput, result);
 
-    display.value = result;
-    lastResult = result;
+    currentInput = result.toString();
+
+    display.value = currentInput;
 
   } catch {
+
     display.value = "Error";
+
+    currentInput = "";
   }
 }
 
-// 🔥 Keyboard support (improved)
-document.addEventListener("keydown", function(event) {
-  const key = event.key;
+/* HISTORY */
 
-  if (!isNaN(key) || "+-*/.".includes(key)) {
+function addToHistory(expression, result) {
+
+  const item = document.createElement("div");
+
+  item.textContent = `${expression} = ${result}`;
+
+  history.prepend(item);
+}
+
+/* KEYBOARD SUPPORT */
+
+document.addEventListener("keydown", (e) => {
+
+  const key = e.key;
+
+  if ("0123456789+-*/.%".includes(key)) {
+
     appendValue(key);
-  }
 
-  else if (key === "Enter") {
-    event.preventDefault();
-    calculateResult();
-  }
+  } else if (key === "Enter") {
 
-  else if (key === "Backspace") {
+    calculate();
+
+  } else if (key === "Backspace") {
+
     deleteLast();
-  }
 
-  else if (key === "Escape") {
+  } else if (key === "Escape") {
+
     clearDisplay();
   }
 });
 
-// 🌙 Dark mode toggle
-const toggleBtn = document.getElementById("themeToggle");
+/* THEME TOGGLE */
 
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
+themeToggle.addEventListener("click", () => {
 
-  toggleBtn.textContent =
-    document.body.classList.contains("dark") ? "☀️" : "🌙";
+  document.body.classList.toggle("light-mode");
+
+  if (document.body.classList.contains("light-mode")) {
+
+    themeToggle.textContent = "☀";
+
+  } else {
+
+    themeToggle.textContent = "🌙";
+  }
 });
 
-// ✨ Bonus: Click animation effect
-const buttons = document.querySelectorAll(".btn");
+/* COPY RESULT */
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    btn.classList.add("active");
+copyBtn.addEventListener("click", async () => {
+
+  if (!display.value) return;
+
+  try {
+
+    await navigator.clipboard.writeText(display.value);
+
+    copyBtn.textContent = "Copied!";
 
     setTimeout(() => {
-      btn.classList.remove("active");
-    }, 100);
-  });
+
+      copyBtn.textContent = "Copy";
+
+    }, 1500);
+
+  } catch {
+
+    copyBtn.textContent = "Failed";
+  }
 });
